@@ -18,9 +18,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OU
 #include <array>
 #include <string>
 #include <sstream>
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
+#include "uuid.hpp"
 #include "BuildingGuid.h"
 
 ///@brief Creates a GUID string with 36 characters including dashes, for example: "F103000C-9865-44EE-BE6E-CCC780B81423"
@@ -28,8 +26,8 @@ std::wstring createGUID32_wstr()
 {
 	std::basic_stringstream<wchar_t> uuid_strs;
 	uuid_strs << std::uppercase;
-	boost::uuids::uuid uuid = boost::uuids::random_generator()( );
-	uuid_strs << uuid;
+	ftl::uuid uuid = ftl::uuid::generate();
+    uuid_strs << uuid.toWString();
 	return uuid_strs.str();
 }
 
@@ -37,8 +35,8 @@ std::string createGUID32()
 {
 	std::basic_stringstream<char> uuid_strs;
 	uuid_strs << std::uppercase;
-	boost::uuids::uuid uuid = boost::uuids::random_generator()();
-	uuid_strs << uuid;
+    ftl::uuid uuid = ftl::uuid::generate();
+    uuid_strs << uuid.toString();
 	return uuid_strs.str();
 }
 
